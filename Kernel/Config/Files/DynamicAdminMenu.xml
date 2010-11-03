@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<otrs_config version="1.0" init="Application">
+    <CVS>$Id: DynamicAdminMenu.xml,v 1.12 2008/03/10 12:57:42 mh Exp $</CVS>
+    <ConfigItem Name="Admin::Menu###System" Required="0" Valid="1">
+        <Description Translatable="1">Block 'System' in admin menu.</Description>
+        <Group>DynamicAdminMenu</Group>
+        <SubGroup>Blocks</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Title">System Administration</Item>
+                <Item Key="Position">6</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Admin::Menu###Agent" Required="0" Valid="1">
+        <Description Translatable="1">Block 'Agent' in admin menu.</Description>
+        <Group>DynamicAdminMenu</Group>
+        <SubGroup>Blocks</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Title">Agent Management</Item>
+                <Item Key="Position">1</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Admin::Menu###Customer" Required="0" Valid="1">
+        <Description Translatable="1">Block 'Customer' in admin menu.</Description>
+        <Group>DynamicAdminMenu</Group>
+        <SubGroup>Blocks</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Title">Customer Management</Item>
+                <Item Key="Position">2</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Admin::Menu###Email" Required="0" Valid="1">
+        <Description Translatable="1">Block 'Email' in admin menu.</Description>
+        <Group>DynamicAdminMenu</Group>
+        <SubGroup>Blocks</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Title">Email Settings</Item>
+                <Item Key="Position">3</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Admin::Menu###Queue" Required="0" Valid="1">
+        <Description Translatable="1">Block 'Queue' in admin menu.</Description>
+        <Group>DynamicAdminMenu</Group>
+        <SubGroup>Blocks</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Title">Queue Settings</Item>
+                <Item Key="Position">4</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Admin::Menu###Ticket" Required="0" Valid="1">
+        <Description Translatable="1">Block 'Ticket' in admin menu.</Description>
+        <Group>DynamicAdminMenu</Group>
+        <SubGroup>Blocks</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Title">Ticket Settings</Item>
+                <Item Key="Position">5</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+</otrs_config>
