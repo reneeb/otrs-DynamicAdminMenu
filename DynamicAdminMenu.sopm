@@ -12,6 +12,6 @@
     <Filelist>
         <File Permission="644" Location="Kernel/Config/Files/DynamicAdminMenu.xml"/>
         <File Permission="644" Location="Kernel/Output/HTML/NavBarModuleAdmin.pm"/>
-        <File Permission="644" Location="Kernel/Output/HTML/Standard/AdminNavigationBar.pm"/>
+        <File Permission="644" Location="Kernel/Output/HTML/Standard/AdminNavigationBar.dtl"/>
     </Filelist>
 </otrs_package>
