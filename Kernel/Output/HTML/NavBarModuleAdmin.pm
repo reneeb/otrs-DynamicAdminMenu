@@ -1,9 +1,7 @@
 # --
 # Kernel/Output/HTML/NavBarModuleAdmin.pm
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
-# --
-# $Id: NavBarModuleAdmin.pm,v 1.11 2010/07/15 12:31:45 mg Exp $
-# $OldId: NavBarModuleAdmin.pm,v 1.11 2010/07/15 12:31:45 mg Exp $
+# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Changes Copyright (C) 2011-2014 Perl-Services.de, http://perl-services.de
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -14,9 +12,6 @@ package Kernel::Output::HTML::NavBarModuleAdmin;
 
 use strict;
 use warnings;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.11 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -38,9 +33,16 @@ sub Run {
     # only show it on admin start screen
     return '' if $Self->{LayoutObject}->{Action} ne 'Admin';
 
+    # generate manual link
+    my $ManualVersion = $Self->{ConfigObject}->Get('Version');
+    $ManualVersion =~ m{^(\d{1,2}).+};
+    $ManualVersion = $1;
+
     $Self->{LayoutObject}->Block(
         Name => 'AdminNavBar',
-        Data => {},
+        Data => {
+            ManualVersion => $ManualVersion,
+        },
     );
 # ---
 # DynamicAdminMenu
@@ -53,6 +55,7 @@ sub Run {
     # get all Frontend::Module
     my %NavBarModule;
     my $FrontendModuleConfig = $Self->{ConfigObject}->Get('Frontend::Module');
+    MODULE:
     for my $Module ( sort keys %{$FrontendModuleConfig} ) {
         my %Hash = %{ $FrontendModuleConfig->{$Module} };
         if (
@@ -94,16 +97,17 @@ sub Run {
                 }
 
             }
-            next if !$Shown;
+            next MODULE if !$Shown;
 
             my $Key = sprintf( "%07d", $Hash{NavBarModule}->{Prio} || 0 );
+            COUNT:
             for ( 1 .. 51 ) {
                 if ( $NavBarModule{$Key} ) {
                     $Hash{NavBarModule}->{Prio}++;
                     $Key = sprintf( "%07d", $Hash{NavBarModule}->{Prio} );
                 }
                 if ( !$NavBarModule{$Key} ) {
-                    last;
+                    last COUNT;
                 }
             }
 # ---
@@ -123,6 +127,18 @@ sub Run {
 # ---
 # DynamicAdminMenu
 # ---
+#    my %Count;
+#    for my $Module ( sort keys %NavBarModule ) {
+#        my $BlockName = $NavBarModule{$Module}->{NavBarModule}->{Block} || 'Item';
+#        $Self->{LayoutObject}->Block(
+#            Name => $BlockName,
+#            Data => $NavBarModule{$Module},
+#        );
+#        if ( $Count{$BlockName}++ % 2 ) {
+#            $Self->{LayoutObject}->Block( Name => $BlockName . 'Clear' );
+#        }
+#    }
+
     my @Data;
     for my $BlockName (@SortedBlocks) {
         my $ItemsForBlock = $NavBarModule{$BlockName};
@@ -168,19 +184,6 @@ sub Run {
 
         $Counter++;
     }
-
-
-#    my %Count;
-#    for my $Module ( sort keys %NavBarModule ) {
-#        my $BlockName = $NavBarModule{$Module}->{NavBarModule}->{Block} || 'Item';
-#        $Self->{LayoutObject}->Block(
-#            Name => $BlockName,
-#            Data => $NavBarModule{$Module},
-#        );
-#        if ( $Count{$BlockName}++ % 2 ) {
-#            $Self->{LayoutObject}->Block( Name => $BlockName . 'Clear' );
-#        }
-#    }
 # ---
 
     my $Output = $Self->{LayoutObject}->Output(
