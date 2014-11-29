@@ -40,7 +40,6 @@
             </div>
         </div>
 [% RenderBlockEnd("Block") %]
-        <div class="Clear"></div>
     </div>
 [% RenderBlockEnd("Row") %]
 

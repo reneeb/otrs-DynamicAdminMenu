@@ -99,14 +99,29 @@ sub Run {
             }
             next MODULE if !$Shown;
 
+# ---
+# DynamicAdminMenu
+# ---
+            my $BlockName = $Hash{NavBarModule}->{Block} || 'Item';
+# ---
             my $Key = sprintf( "%07d", $Hash{NavBarModule}->{Prio} || 0 );
             COUNT:
             for ( 1 .. 51 ) {
-                if ( $NavBarModule{$Key} ) {
+# ---
+# DynamicAdminMenu
+# ---
+#                if ( $NavBarModule{$Key} ) {
+                if ( $NavBarModule{$BlockName}->{$Key} ) {
+# ---
                     $Hash{NavBarModule}->{Prio}++;
                     $Key = sprintf( "%07d", $Hash{NavBarModule}->{Prio} );
                 }
-                if ( !$NavBarModule{$Key} ) {
+# ---
+# DynamicAdminMenu
+# ---
+#                if ( !$NavBarModule{$Key} ) {
+                if ( !$NavBarModule{$BlockName}->{$Key} ) {
+# ---
                     last COUNT;
                 }
             }
@@ -114,8 +129,7 @@ sub Run {
 # DynamicAdminMenu
 # ---
 #            $NavBarModule{$Key} = {
-             my $BlockName = $Hash{NavBarModule}->{Block} || 'Item';
-             $NavBarModule{$BlockName}->{$Key} = {
+            $NavBarModule{$BlockName}->{$Key} = {
 # ---
                 'Frontend::Module' => $Module,
                 %Hash,
